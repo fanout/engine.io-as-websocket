@@ -1,0 +1,43 @@
+{
+  "name": "engineio-as-websocket",
+  "version": "0.0.1",
+  "description": "Wraps Engine.IO to make it usable with the same API as WebSocket",
+  "main": "lib/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fanout/engineio-as-websocket.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fanout/engineio-as-websocket/issues"
+  },
+  "keywords": [
+    "websocket",
+    "engine.io",
+    "realtime"
+  ],
+  "author": "fanout",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf lib dist",
+    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --presets es2015",
+    "build:umd": "mkdir -p dist && cross-env BABEL_ENV=browserify NODE_ENV=development browserify src/browser.js -s EngineIoSocket -o dist/engineiosocket.js -t [ babelify --presets [ es2015 ] ]",
+    "build:umd:min": "mkdir -p dist && cross-env BABEL_ENV=browserify NODE_ENV=production browserify src/browser.js -s EngineIoSocket -o dist/engineiosocket.min.js -t [ babelify --presets [ es2015 ] ] -p [ minifyify --no-map ]",
+    "prepublish": "npm run clean && npm run build"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "cross-env": "^1.0.7",
+    "engine.io-client": "^1.6.9",
+    "minifyify": "^7.3.3",
+    "rimraf": "^2.5.2"
+  }
+}
