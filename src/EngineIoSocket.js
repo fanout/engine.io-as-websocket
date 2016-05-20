@@ -1,5 +1,12 @@
 import EngineIoClient from "engine.io-client";
 
+const readyStateStringToValue = new Map([
+    [ 'opening', 0 ],
+    [ 'open', 1 ],
+    [ 'closing', 2 ],
+    [ 'closed', 3 ]
+]);
+
 export default class EngineIoSocket {
     constructor(url) {
         this.onopen = null;
@@ -12,10 +19,10 @@ export default class EngineIoSocket {
         this.protocol = "";
         this.bufferedAmount = undefined;
 
-        this.readyState = this.eioSocket.readyState;
+        this.setReadyState();
 
         this.eioSocket.on("open", () => {
-            this.readyState = this.eioSocket.readyState;
+            this.setReadyState();
             if (this.onopen != null) {
                 const event = new Event("open");
                 this.onopen.call(this, event);
@@ -23,7 +30,7 @@ export default class EngineIoSocket {
         });
 
         this.eioSocket.on("close", (reason, desc) => {
-            this.readyState = this.eioSocket.readyState;
+            this.setReadyState();
             if (this.onclose != null) {
                 const event = new Event("close");
                 event.reason = reason;
@@ -38,7 +45,7 @@ export default class EngineIoSocket {
         });
         
         this.eioSocket.on("message", (data) => {
-            this.readyState = this.eioSocket.readyState;
+            this.setReadyState();
             if (this.onmessage != null) {
                 const event = Object.assign(new Event("message"), { data });
                 this.onmessage.call(this, event);
@@ -46,19 +53,22 @@ export default class EngineIoSocket {
         });
 
         this.eioSocket.on("error", () => {
-            this.readyState = this.eioSocket.readyState;
+            this.setReadyState();
             if (this.onerror != null) {
                 const event = new Event("error");
                 this.onerror.call(this, event);
             }
         });
     }
+    setReadyState() {
+        this.readyState = readyStateStringToValue.get(this.eioSocket.readyState);
+    }
     send(message) {
         this.eioSocket.send(message);
-        this.readyState = this.eioSocket.readyState;
+        this.setReadyState();
     }
     close() {
         this.eioSocket.close();
-        this.readyState = this.eioSocket.readyState;
+        this.setReadyState();
     }
 }
