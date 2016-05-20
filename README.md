@@ -28,6 +28,6 @@ Simply substitute `WebSocket` with `EngineIoSocket` in your code:
 </script>
 ```
 
-## Cavaets
+## Caveats
 
 The `onclose` callback provides an event containing `code` and `wasClean`, however `code` is bogus and `wasClean` is always `false`. This is because the Engine.IO client doesn't bubble up the values reported by its underlying WebSocket. Do not rely on clean closing at the transport level when using Engine.IO.
