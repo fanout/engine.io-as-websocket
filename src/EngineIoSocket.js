@@ -10,11 +10,11 @@ export default class EngineIoSocket {
         this.url = url;
         this.extensions = "";
         this.protocol = "";
-        this.bufferedAmount = "";
+        this.bufferedAmount = undefined;
 
         this.readyState = this.eioSocket.readyState;
 
-        this.eioSocket.on('open', () => {
+        this.eioSocket.on("open", () => {
             this.readyState = this.eioSocket.readyState;
             if (this.onopen != null) {
                 const event = new Event("open");
@@ -22,7 +22,7 @@ export default class EngineIoSocket {
             }
         });
 
-        this.eioSocket.on('close', (reason, desc) => {
+        this.eioSocket.on("close", (reason, desc) => {
             this.readyState = this.eioSocket.readyState;
             if (this.onclose != null) {
                 const event = new Event("close");
@@ -37,7 +37,7 @@ export default class EngineIoSocket {
             }
         });
         
-        this.eioSocket.on('message', (data) => {
+        this.eioSocket.on("message", (data) => {
             this.readyState = this.eioSocket.readyState;
             if (this.onmessage != null) {
                 const event = Object.assign(new Event("message"), { data });
@@ -45,7 +45,7 @@ export default class EngineIoSocket {
             }
         });
 
-        this.eioSocket.on('error', () => {
+        this.eioSocket.on("error", () => {
             this.readyState = this.eioSocket.readyState;
             if (this.onerror != null) {
                 const event = new Event("error");
