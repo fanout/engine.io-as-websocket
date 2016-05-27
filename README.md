@@ -11,6 +11,51 @@ Apparently the Engine.IO client [originally did mimic the WebSocket interface](h
 
 Engine.IO-as-WebSocket is offered under the MIT license. See the COPYING file.
 
+## Installation
+
+### Browsers
+
+For use in a browser script tag, clone this repository and build it:
+
+```
+git clone https://github.com/fanout/engine.io-as-websocket.git
+cd engine.io-as-websocket
+npm install
+npm run build
+```
+
+The resulting file will be available at `dist/engine.io-as-websocket.js` (and `dist/engine.io-as-websocket.min.js` for a minified version).
+
+or get the npm package:
+
+```
+npm install engine.io-as-websocket
+```
+
+The file will be available at `node_modules/engine.io-as-websocket/dist/engine.io-as-websocket.js` (and `node_modules/engine.io-as-websocket/dist/engine.io-as-websocket.min.js` for a minified version).
+
+Engine.IO-as-WebSocket will become available through the `EngineIoSocket` global variable.
+
+### Node.js (and Browserify/Webpack/etc)
+
+Add to your project using npm:
+
+```
+npm install engine.io-as-websocket --save
+```
+
+And then reference Engine.IO-as-WebSocket from your code file:
+
+```javascript
+import EngineIoSocket from "engine.io-as-websocket";
+```
+
+or
+
+```javascript
+const EngineIoSocket = require("engine.io-as-websocket").default;
+```
+
 ## Usage
 
 Simply substitute `WebSocket` with `EngineIoSocket` in your code:
