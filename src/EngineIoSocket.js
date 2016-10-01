@@ -1,5 +1,7 @@
 import EngineIoClient from "engine.io-client";
 
+import { splitHref } from "./utils";
+
 const readyStateStringToValue = new Map([
     [ 'opening', 0 ],
     [ 'open', 1 ],
@@ -9,11 +11,14 @@ const readyStateStringToValue = new Map([
 
 export default class EngineIoSocket {
     constructor(url) {
+
+        const { uri, path } = splitHref(url);
+
         this.onopen = null;
         this.onclose = null;
         this.onmessage = null;
         this.onerror = null;
-        this.eioSocket = new EngineIoClient(url);
+        this.eioSocket = new EngineIoClient(uri, { path });
         this.url = url;
         this.extensions = "";
         this.protocol = "";

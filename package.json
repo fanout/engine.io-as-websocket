@@ -32,7 +32,8 @@
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib --presets es2015",
     "build:umd": "mkdir -p dist && cross-env BABEL_ENV=browserify NODE_ENV=development browserify src/browser.js -s EngineIoSocket -o dist/engine.io-as-websocket.js -t [ babelify --presets [ es2015 ] ]",
     "build:umd:min": "mkdir -p dist && cross-env BABEL_ENV=browserify NODE_ENV=production browserify src/browser.js -s EngineIoSocket -o dist/engine.io-as-websocket.min.js -t [ babelify --presets [ es2015 ] ] -p [ minifyify --no-map ]",
-    "prepublish": "npm run clean && npm run build"
+    "prepublish": "npm run clean && npm run build",
+    "test": "babel-node --presets es2015 test/*.js"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
@@ -42,6 +43,7 @@
     "cross-env": "^1.0.7",
     "engine.io-client": "^1.6.9",
     "minifyify": "^7.3.3",
-    "rimraf": "^2.5.2"
+    "rimraf": "^2.5.2",
+    "tape": "^4.6.2"
   }
 }
