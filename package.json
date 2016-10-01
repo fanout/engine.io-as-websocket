@@ -1,6 +1,6 @@
 {
   "name": "engine.io-as-websocket",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Wraps Engine.IO to make it usable with the same API as WebSocket",
   "main": "lib/index.js",
   "files": [
