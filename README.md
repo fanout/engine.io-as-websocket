@@ -1,7 +1,6 @@
 # Engine.IO-as-WebSocket
 
 Author: Katsuyuki Ohmuro <harmony7@pex2.jp>  
-Mailing List: http://lists.fanout.io/mailman/listinfo/fanout-users
 
 Engine.IO-as-WebSocket is a small library that wraps [engine.io-client](https://github.com/socketio/engine.io-client) to provide an interface similar to the browser `WebSocket` class. This makes it easy to use Engine.IO in otherwise pure-WebSocket code via dependency injection.
 
